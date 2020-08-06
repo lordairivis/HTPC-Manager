@@ -7,7 +7,7 @@ import htpc
 import base64
 import socket
 import struct
-from urllib2 import quote
+from urllib.parse import quote
 from jsonrpclib import Server
 from sqlobject import SQLObject, SQLObjectNotFound
 from sqlobject.col import StringCol, IntCol
@@ -164,15 +164,15 @@ class Kodi(object):
         resize_sizes = [[225, 338], [200, 300], [675, 400], [100, 150], [375, 210], [150, 150]]
 
         for item in stuff:
-            for k, v in item.items():
+            for k, v in list(item.items()):
                 if k in ['episodes', 'movies', 'tvshows', 'songs', 'artists', 'addons']:
                     self.logger.debug('There where %s %s' % (len(item[k]), k))
                     for kk in item[k]:
-                        for kkk, vvv, in kk.items():
+                        for kkk, vvv, in list(kk.items()):
                             d = {}
                             if kkk == wanted_art or wanted_art == 'all':
                                 if kkk == 'art':
-                                    for z, a in kk['art'].items():
+                                    for z, a in list(kk['art'].items()):
                                         if z == wanted_art or wanted_art == 'all':
                                             _url = url + quote(a)
                                             h = hashlib.md5(_url).hexdigest()
@@ -215,7 +215,7 @@ class Kodi(object):
             kodi = Server('http://' + url + '/jsonrpc')
             self.logger.debug("Trying to contact kodi via %s" % url)
             return kodi.XBMC.GetInfoLabels(labels=["Network.MacAddress"])
-        except Exception, e:
+        except Exception as e:
             self.logger.exception(e)
             self.logger.error("Unable to contact kodi via %s", url)
 
@@ -267,7 +267,7 @@ class Kodi(object):
                 self.changeserver(server.id)
                 htpc.BLACKLISTWORDS.append(kodi_server_password)
                 return 1
-            except Exception, e:
+            except Exception as e:
                 self.logger.debug("Exception: " + str(e))
                 self.logger.error("Unable to create kodi-Server in database")
                 return 0
@@ -283,7 +283,7 @@ class Kodi(object):
                 server.mac = kodi_server_mac
                 server.starterport = kodi_server_starterport
                 return 1
-            except SQLObjectNotFound, e:
+            except SQLObjectNotFound as e:
                 self.logger.error("Unable to update kodi-Server " + server.name + " in database")
                 return 0
 
@@ -341,7 +341,7 @@ class Kodi(object):
             if hidewatched == "1":
                 filter = {"and": [filter, {'field': 'playcount', 'operator': 'is', 'value': '0'}]}
             return kodi.VideoLibrary.GetMovies(sort=sort, properties=properties, limits=limits, filter=filter)
-        except Exception, e:
+        except Exception as e:
             self.logger.exception(e)
             self.logger.error("Unable to fetch movies!")
             return
@@ -362,7 +362,7 @@ class Kodi(object):
                 filter = {"and": [filter, {'field': 'playcount', 'operator': 'is', 'value': '0'}]}
             shows = kodi.VideoLibrary.GetTVShows(sort=sort, properties=properties, limits=limits, filter=filter)
             return shows
-        except Exception, e:
+        except Exception as e:
             self.logger.exception(e)
             self.logger.error("Unable to fetch TV Shows")
             return
@@ -399,7 +399,7 @@ class Kodi(object):
             limits = {'start': int(start), 'end': int(end)}
             filter = {'field': 'artist', 'operator': 'contains', 'value': filter}
             return kodi.AudioLibrary.GetArtists(properties=properties, limits=limits, sort=sort, filter=filter)
-        except Exception, e:
+        except Exception as e:
             self.logger.exception(e)
             self.logger.error("Unable to fetch artists!")
             return
@@ -421,7 +421,7 @@ class Kodi(object):
                 filter = {'or': [{'field': 'album', 'operator': 'contains', 'value': filter},
                                  {'field': 'artist', 'operator': 'contains', 'value': filter}]}
             return kodi.AudioLibrary.GetAlbums(properties=properties, limits=limits, sort=sort, filter=filter)
-        except Exception, e:
+        except Exception as e:
             self.logger.debug("Exception: %s", str(e))
             self.logger.error("Unable to fetch albums!")
             return
@@ -447,7 +447,7 @@ class Kodi(object):
                                  {'field': 'title', 'operator': 'contains', 'value': filter}]}
 
             return kodi.AudioLibrary.GetSongs(properties=properties, limits=limits, sort=sort, filter=filter)
-        except Exception, e:
+        except Exception as e:
             self.logger.exception(e)
             self.logger.error("Unable to fetch artists!")
             return
@@ -461,7 +461,7 @@ class Kodi(object):
         try:
             kodi = Server(self.url('/jsonrpc', True))
             return kodi.PVR.GetChannelGroups(channeltype=type)
-        except Exception, e:
+        except Exception as e:
             self.logger.exception(e)
             self.logger.error("Unable to fetch channelgroups!")
             return
@@ -475,7 +475,7 @@ class Kodi(object):
         try:
             kodi = Server(self.url('/jsonrpc', True))
             return kodi.PVR.GetChannels(channelgroupid=int(group), properties=['thumbnail'])
-        except Exception, e:
+        except Exception as e:
             self.logger.exception(e)
             self.logger.error("Unable to fetch channels!")
             return
@@ -644,7 +644,7 @@ class Kodi(object):
             return {'playerInfo': player, 'itemInfo': item, 'app': app}
         except IndexError:
             return
-        except Exception, e:
+        except Exception as e:
             self.logger.exception(e)
             self.logger.error("Unable to fetch currently playing information!")
             return
@@ -659,10 +659,10 @@ class Kodi(object):
             kodi = Server(self.url('/jsonrpc', True))
             if action == 'seek':
                 player = kodi.Player.GetActivePlayers()[0]
-                return kodi.Player.Seek(playerid=player[u'playerid'], value=float(value))
+                return kodi.Player.Seek(playerid=player['playerid'], value=float(value))
             elif action == 'jump':
                 player = kodi.Player.GetActivePlayers()[0]
-                return kodi.Player.GoTo(playerid=player[u'playerid'], to=int(value))
+                return kodi.Player.GoTo(playerid=player['playerid'], to=int(value))
             elif action == 'party':
                 return kodi.Player.Open(item={'partymode': 'audio'})
             elif action == 'getsub':
@@ -680,7 +680,7 @@ class Kodi(object):
                 return kodi.Application.SetVolume(volume=int(value))
             else:
                 return kodi.Input.ExecuteAction(action=action)
-        except Exception, e:
+        except Exception as e:
             self.logger.exception(e)
             self.logger.error("Unable to control kodi with action: %s", action)
             return 'error'
@@ -702,7 +702,7 @@ class Kodi(object):
         self.logger.debug("Changing subtitles to %s", subtitle)
         try:
             kodi = Server(self.url('/jsonrpc', True))
-            playerid = kodi.Player.GetActivePlayers()[0][u'playerid']
+            playerid = kodi.Player.GetActivePlayers()[0]['playerid']
             try:
                 subtitle = int(subtitle)
                 kodi.Player.SetSubtitle(playerid=playerid, subtitle=subtitle, enable=True)
@@ -710,7 +710,7 @@ class Kodi(object):
             except ValueError:
                 kodi.Player.SetSubtitle(playerid=playerid, subtitle='off')
                 return "Disabling subtitles."
-        except Exception, e:
+        except Exception as e:
             self.logger.exception(e)
             self.logger.error("Unable to set subtitle to specified value %s", subtitle)
             return
@@ -723,9 +723,9 @@ class Kodi(object):
         self.logger.debug("Chaning audio stream to %s", audio)
         try:
             kodi = Server(self.url('/jsonrpc', True))
-            playerid = kodi.Player.GetActivePlayers()[0][u'playerid']
+            playerid = kodi.Player.GetActivePlayers()[0]['playerid']
             return kodi.Player.SetAudioStream(playerid=playerid, stream=int(audio))
-        except Exception, e:
+        except Exception as e:
             self.logger.exception(e)
             self.logger.error("Unable to change audio stream to specified value %s", audio)
             return
@@ -775,7 +775,7 @@ class Kodi(object):
             s.sendto(msg, ("255.255.255.255", 9))
             self.logger.info("WOL package sent to %s", self.current.mac)
             return "WOL package sent"
-        except Exception, e:
+        except Exception as e:
             self.logger.exception(e)
             self.logger.error("Unable to send WOL packet")
             return "Unable to send WOL packet"
@@ -791,7 +791,7 @@ class Kodi(object):
             s.sendto("YatseStart-Xbmc", (self.current.host, self.current.starterport))
             self.logger.info("XBMC Starter package sent to %s:%s", self.current.host, self.current.starterport)
             return "XBMC Starter packet sent"
-        except Exception, e:
+        except Exception as e:
             self.logger.exception(e)
             self.logger.error("Unable to send XBMC Starter packet")
             self.logger.debug('Have you installed http://yatse.leetzone.org/redmine/projects/androidwidget/wiki/XbmcStarter?')
@@ -819,7 +819,7 @@ class Kodi(object):
                           'fanart', 'trailer', 'imdbnumber', 'studio', 'genre', 'rating']
             limits = {'start': 0, 'end': int(limit)}
             return kodi.VideoLibrary.GetRecentlyAddedMovies(properties=properties, limits=limits)
-        except Exception, e:
+        except Exception as e:
             self.logger.exception(e)
             self.logger.error("Unable to fetch recently added movies!")
             return
@@ -836,7 +836,7 @@ class Kodi(object):
                           'thumbnail', 'plot', 'fanart', 'file']
             limits = {'start': 0, 'end': int(limit)}
             return kodi.VideoLibrary.GetRecentlyAddedEpisodes(properties=properties, limits=limits)
-        except Exception, e:
+        except Exception as e:
             self.logger.exception(e)
             self.logger.error("Unable to fetch recently added TV Shows")
             return
@@ -852,7 +852,7 @@ class Kodi(object):
             properties = ['artist', 'albumlabel', 'year', 'description', 'thumbnail']
             limits = {'start': 0, 'end': int(limit)}
             return kodi.AudioLibrary.GetRecentlyAddedAlbums(properties=properties, limits=limits)
-        except Exception, e:
+        except Exception as e:
             self.logger.exception(e)
             self.logger.error("Unable to fetch recently added Music!")
             return

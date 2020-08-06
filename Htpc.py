@@ -12,6 +12,7 @@ import htpc
 import webbrowser
 import locale
 import logging
+import importlib
 
 
 def parse_arguments():
@@ -142,7 +143,7 @@ def main():
         htpc.SYS_ENCODING = 'UTF-8'
 
     if not hasattr(sys, "setdefaultencoding"):
-            reload(sys)
+            importlib.reload(sys)
 
     # python 2.7.9 verifies certs by default. This disables it
     if sys.version_info >= (2, 7, 9):

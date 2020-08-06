@@ -4,7 +4,7 @@
 import datetime as DT
 from json import loads, dumps
 import logging
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 import cherrypy
 from cherrypy.lib.auth2 import require, member_of
@@ -156,7 +156,7 @@ class Sonarr(object):
     @cherrypy.tools.json_out()
     def Calendar(self, param=None, *args, **kwargs):
         kwargs.pop('_')
-        p = urllib.urlencode(kwargs)
+        p = urllib.parse.urlencode(kwargs)
         episodes = self.fetch('Calendar?%s' % p)
         cal = []
         if episodes:
@@ -287,7 +287,7 @@ class Sonarr(object):
     @require()
     @cherrypy.tools.json_out()
     def Lookup(self, q):
-        return self.fetch('Series/lookup?term=%s' % urllib.quote(q))
+        return self.fetch('Series/lookup?term=%s' % urllib.parse.quote(q))
 
     @cherrypy.expose()
     @require()
@@ -340,7 +340,7 @@ class Sonarr(object):
                 if monitor == 'all':
                     season_monitoring = True
 
-                for x in xrange(start_on_season, int(seasoncount)):
+                for x in range(start_on_season, int(seasoncount)):
                     s = {'seasonNumber': x, 'monitored': season_monitoring}
                     season.append(s)
 
@@ -367,7 +367,7 @@ class Sonarr(object):
                 cherrypy.response.headers['Content-Type'] = 'application/json'
                 return self.fetch('Series', data=i, type='post')
 
-        except Exception, e:
+        except Exception as e:
             self.logger.error('Failed to add tvshow %s %s' % (tvdbid, e))
 
     @cherrypy.expose()

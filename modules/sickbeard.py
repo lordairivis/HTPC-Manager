@@ -3,7 +3,7 @@
 
 import cherrypy
 import htpc
-from urllib import quote_plus
+from urllib.parse import quote_plus
 import requests
 import logging
 from cherrypy.lib.auth2 import require, member_of

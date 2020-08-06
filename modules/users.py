@@ -58,7 +58,7 @@ class Users(object):
                 htpc.BLACKLISTWORDS.append(users_user_password)
                 return 'hack'
 
-            except Exception, e:
+            except Exception as e:
                 self.logger.debug('Failed to create %s %s' % (users_user_username, e))
                 return
         else:
@@ -68,7 +68,7 @@ class Users(object):
                 users.password = users_user_password
                 users.role = users_user_role
                 return 'hack'
-            except SQLObjectNotFound, e:
+            except SQLObjectNotFound as e:
                 self.logger.debug('Failed to update username on %s' % users_user_username)
                 return
 

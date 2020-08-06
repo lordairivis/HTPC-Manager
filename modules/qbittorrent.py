@@ -125,14 +125,14 @@ class Qbittorrent(object):
                 l = []
                 for torrent in torrents:
                     t = {}
-                    for k, v in torrent.items():
+                    for k, v in list(torrent.items()):
                         t[k] = v
                         if k == 'size':
                             t['size'] = sizeof(int(v))
                         if k == 'eta':
                             eta = time.strftime('%H:%M:%S', time.gmtime(v))
                             if eta == '00:00:00':
-                                eta = u'\u221E'
+                                eta = '\u221E'
                             t['eta'] = eta
                         if k == 'ratio':
                             t['ratio'] = math.ceil(v)

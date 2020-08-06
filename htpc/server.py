@@ -10,8 +10,8 @@ import logging
 from sqlobject import SQLObjectNotFound
 from htpc.manageusers import Manageusers
 from cherrypy.process.plugins import Daemonizer, PIDFile
-from helpers import create_https_certificates
-from root import do_restart
+from .helpers import create_https_certificates
+from .root import do_restart
 
 
 def secureheaders():
@@ -188,8 +188,8 @@ def start():
 
     # Start the CherryPy server
     logger.info("Starting up webserver")
-    print '*******************************************************************'
-    print 'Starting HTPC Manager on port ' + str(htpc.PORT) + '.'
-    print 'Start your browser and go to http%s://localhost:%s%s' % (protocol, htpc.PORT, htpc.WEBDIR[:-1])
-    print '*******************************************************************'
+    print('*******************************************************************')
+    print('Starting HTPC Manager on port ' + str(htpc.PORT) + '.')
+    print('Start your browser and go to http%s://localhost:%s%s' % (protocol, htpc.PORT, htpc.WEBDIR[:-1]))
+    print('*******************************************************************')
     cherrypy.quickstart(htpc.ROOT, htpc.WEBDIR[:-1], config=app_config)

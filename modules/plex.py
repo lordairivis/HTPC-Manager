@@ -7,11 +7,11 @@ import re
 import socket
 import struct
 from json import loads
-from urllib2 import Request, urlopen
-import urllib
+from urllib.request import Request, urlopen
+import urllib.request, urllib.parse, urllib.error
 from htpc.helpers import get_image, striphttp, joinArgs, cachedprime
 import logging
-import urlparse
+import urllib.parse
 import base64
 import platform
 from cherrypy.lib.auth2 import require, member_of
@@ -346,7 +346,7 @@ class Plex(object):
                 self.logger.debug('Using PIL to resize image to %sx%s opacity %s url %s' % (w, h, o, url))
             else:
                 # Fallback to transcode if pil isnt installed, plex quality 75
-                url = '%s/photo/:/transcode?height=%s&width=%s&opacity=%s&saturation=%s&url=%s' % (Plex.get_server_url(), h, w, o, 100, urllib.quote_plus('%s%s' % (Plex.get_server_url(), thumb)))
+                url = '%s/photo/:/transcode?height=%s&width=%s&opacity=%s&saturation=%s&url=%s' % (Plex.get_server_url(), h, w, o, 100, urllib.parse.quote_plus('%s%s' % (Plex.get_server_url(), thumb)))
                 self.logger.debug('Using plex to resize image to %sx%s opacity %s url %s' % (w, h, o, url))
         else:
             url = '/images/DefaultVideo.png'
@@ -1204,15 +1204,15 @@ class Plex(object):
         if ok:
             # Check for control chars and default to title
             if '=' not in s and '<' not in s and '>' not in s and '!' not in s:
-                return '%s?title=%s' % (default, urllib.quote_plus(s))
+                return '%s?title=%s' % (default, urllib.parse.quote_plus(s))
             else:
-                s = urlparse.parse_qsl(s)
+                s = urllib.parse.parse_qsl(s)
                 # returns empty list if it fails
                 if not len(s):
                     return default
                 else:
                     d = dict(s)
-                    for k, v in d.items():
+                    for k, v in list(d.items()):
                         if v == '':
                             return default
 
@@ -1255,7 +1255,7 @@ class Plex(object):
                                 d[k] = gen[v]
                             else:
                                 # return filter as typed if not matched to genre above, in case someone actually knows what index to type
-                                return '%s?%s' % (default, urllib.urlencode(s))
+                                return '%s?%s' % (default, urllib.parse.urlencode(s))
 
                         # TODO: If the lookup for 'genre=' can be made dynamic, then we can easily add these other filters:
                         # if k == 'director':
@@ -1285,4 +1285,4 @@ class Plex(object):
                             else:
                                 return default
 
-                    return '%s?%s' % (default, urllib.urlencode(d))
+                    return '%s?%s' % (default, urllib.parse.urlencode(d))

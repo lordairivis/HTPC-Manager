@@ -4,8 +4,8 @@
 import cherrypy
 import htpc
 import logging
-import urllib2
-import urllib
+import urllib.request, urllib.error, urllib.parse
+import urllib.request, urllib.parse, urllib.error
 import base64
 import json
 from cherrypy.lib.auth2 import require
@@ -99,15 +99,15 @@ class TVHeadend(object):
         strData = None
 
         if rgpData is not None:
-            strData = urllib.urlencode(rgpData)
+            strData = urllib.parse.urlencode(rgpData)
 
         url = "http://%s:%s/%s" % (htpc.settings.get("tvheadend_host", ""), htpc.settings.get("tvheadend_port", ""), strQuery)
         self.logger.debug('url: %s' % url)
         self.logger.debug('encoded: %s' % strData)
         try:
 
-            pRequest = urllib2.Request("http://%s:%s/%s" % (htpc.settings.get("tvheadend_host", ""), htpc.settings.get("tvheadend_port", ""), strQuery), data = strData, headers = rgpHeaders)
-            strResponse = urllib2.urlopen(pRequest).read()
+            pRequest = urllib.request.Request("http://%s:%s/%s" % (htpc.settings.get("tvheadend_host", ""), htpc.settings.get("tvheadend_port", ""), strQuery), data = strData, headers = rgpHeaders)
+            strResponse = urllib.request.urlopen(pRequest).read()
             return json.loads(strResponse)
         except Exception as e:
             self.logger.error('%s %s failed error: %s' % strQuery, rgpData, e)

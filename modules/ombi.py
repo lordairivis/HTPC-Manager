@@ -69,7 +69,7 @@ class Ombi(object):
             else:
                 logger.error('Unable to contact Ombi via %s Response %s %s' % (u, str(res.status_code), str(res.reason)))
                 return False
-        except Exception, e:
+        except Exception as e:
             logger.error('Exception thrown via %s Response %s' % (u, str(e)))
             return False
 

@@ -4,7 +4,7 @@
 import cherrypy
 import htpc
 from htpc.helpers import get_image, fan_art, tvmaze
-import urllib2
+import urllib
 import logging
 from cherrypy.lib.auth2 import require, member_of
 import requests
@@ -183,7 +183,7 @@ class Newznab(object):
                 indexer.apiurl = apiurl
 
                 return 1
-            except SQLObjectNotFound, e:
+            except SQLObjectNotFound as e:
                 self.logger.error("Unable to update %s in database %s" % (kw.get('newznab_indexer_name'), e))
                 return 0
 

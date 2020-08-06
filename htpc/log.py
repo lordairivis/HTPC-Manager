@@ -116,7 +116,7 @@ class Log(object):
         try:
             open(self.logfile, 'w').close()
             return 'Log file deleted'
-        except Exception, e:
+        except Exception as e:
             return 'Cannot delete log file: %s' % e
 
     @cherrypy.expose()

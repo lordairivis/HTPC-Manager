@@ -174,7 +174,7 @@ class NZBGet(object):
         try:
             nzbget = jsonrpc.ServerProxy('%s' % self.nzbget_url())
             config = nzbget.config()
-            r = re.compile(ur'(Category\d+.name)', re.IGNORECASE)
+            r = re.compile(r'(Category\d+.name)', re.IGNORECASE)
             for category in config:
                 if re.match(r, category['Name']):
                     categorys.append(category['Value'])

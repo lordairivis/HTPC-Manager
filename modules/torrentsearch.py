@@ -151,7 +151,7 @@ class Torrentsearch(object):
         try:
             if result:
                 if 'torrents' in result:
-                    for k, v in result['torrents'].iteritems():
+                    for k, v in result['torrents'].items():
                         v["BrowseURL"] = 'https://broadcasthe.net/torrents.php?id=%s&torrentid=%s' % (v['GroupID'], v['TorrentID'])
                         v["Provider"] = "btn"
                         search_results.append(v)

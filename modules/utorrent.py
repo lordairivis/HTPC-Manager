@@ -10,7 +10,7 @@ from cherrypy.lib.auth2 import require, member_of
 import logging
 import htpc
 import cherrypy
-from HTMLParser import HTMLParser
+from html.parser import HTMLParser
 from htpc.helpers import striphttp
 
 logger = logging.getLogger('modules.utorrent')
@@ -173,7 +173,7 @@ class UTorrent(object):
         try:
             res = self.do_action('add-url', s=url)
             return {'result': res.status_code}
-        except ConnectionError, e:
+        except ConnectionError as e:
             logger.exception(e)
 
     @cherrypy.tools.json_out()

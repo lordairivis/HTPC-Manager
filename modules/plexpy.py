@@ -2,7 +2,7 @@
 from functools import partial
 import json
 import logging
-from urllib import urlencode
+from urllib.parse import urlencode
 
 import requests
 import cherrypy

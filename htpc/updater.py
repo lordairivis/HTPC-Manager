@@ -17,7 +17,7 @@ Used as reference:
 import os
 import time
 from threading import Thread
-import urllib2
+import urllib.request, urllib.parse, urllib.error
 import subprocess
 import re
 from json import loads
@@ -81,6 +81,7 @@ class Updater(object):
                 alternative_gp += ["%USERPROFILE%\AppData\Local\GitHub\PORTAB~1\bin\git.exe", "C:\Program Files (x86)\Git\bin\git.exe"]
         # Returns a empty string if failed
         output = GitUpdater().git_exec(gp, 'version')
+        self.logger.debug("Found git path %s" % gp)
 
         if output:
             # Found a working git path.
@@ -186,11 +187,11 @@ class Updater(object):
         self.logger.debug('Checking how far behind latest')
         try:
             url = 'https://api.github.com/repos/%s/%s/compare/%s...%s' % (gitUser, gitRepo, current, latest)
-            result = loads(urllib2.urlopen(url).read())
+            result = loads(urllib.request.urlopen(url).read())
             behind = int(result['total_commits'])
             self.logger.debug('Behind: ' + str(behind))
             return behind
-        except Exception, e:
+        except Exception as e:
             self.logger.error(str(e))
             self.logger.error('Could not determine how far behind')
             return 'Unknown'
@@ -242,7 +243,7 @@ class GitUpdater(object):
         self.logger.debug('Getting latest version from github.')
         try:
             url = 'https://api.github.com/repos/%s/%s/commits/%s' % (gitUser, gitRepo, self.current_branch_name())
-            result = loads(urllib2.urlopen(url).read())
+            result = loads(urllib.request.urlopen(url).read())
             latest = result['sha'].strip()
             self.logger.debug('Branch: %s' % self.current_branch_name())
             self.logger.debug('Latest sha: %s' % latest)
@@ -320,12 +321,12 @@ class GitUpdater(object):
 
         try:
             proc = subprocess.Popen(gp + " " + args, stdout=subprocess.PIPE,
-                                    stderr=subprocess.STDOUT, shell=True, cwd=htpc.RUNDIR)
+                                    stderr=subprocess.STDOUT, shell=True, cwd=htpc.RUNDIR, universal_newlines=True)
             output, err = proc.communicate()
             exitcode = proc.returncode
 
             self.logger.debug("Running %s %s" % (gp, args))
-        except OSError, e:
+        except OSError as e:
             self.logger.warning(str(e))
             return ''
 
@@ -336,6 +337,7 @@ class GitUpdater(object):
         if err:
             self.logger.warning(output + ' - ' + err)
             return ''
+
         if any(s in output for s in ['not found', 'not recognized', 'fatal:']):
             self.logger.warning(output)
             return ''
@@ -389,7 +391,7 @@ class SourceUpdater(object):
         self.logger.debug('Getting latest version from github.')
         try:
             url = 'https://api.github.com/repos/%s/%s/commits/%s' % (gitUser, gitRepo, htpc.settings.get('branch', 'master2'))
-            result = loads(urllib2.urlopen(url).read())
+            result = loads(urllib.request.urlopen(url).read())
             latest = result['sha'].strip()
             self.logger.debug('Latest version: ' + latest)
             self.latestHash = latest
@@ -407,7 +409,7 @@ class SourceUpdater(object):
         if not isinstance(self.current(), bool):
             try:
                 url = "https://api.github.com/repos/%s/%s/branches?per_page=100" % (gitUser, gitRepo)
-                branches = loads(urllib2.urlopen(url).read())
+                branches = loads(urllib.request.urlopen(url).read())
                 for branch in branches:
                     if branch["commit"]["sha"] == versionfile:
                         current_branch = branch["name"]
@@ -430,13 +432,13 @@ class SourceUpdater(object):
         try:
             url = "https://api.github.com/repos/%s/%s/branches?per_page=100" % (gitUser, gitRepo)
             branchlist = []
-            branches = loads(urllib2.urlopen(url).read())
+            branches = loads(urllib.request.urlopen(url).read())
             for branch in branches:
                 branchlist.append(branch["name"])
             d["branches"] = [b for b in branchlist if b != cbn]
             return d
 
-        except Exception, e:
+        except Exception as e:
             self.logger.error(str(e))
             self.logger.error('Could not find any branches, setting default master2')
             return [d]
@@ -481,7 +483,7 @@ class SourceUpdater(object):
         self.logger.info('Downloading update from %s' % url)
         try:
             self.logger.debug('Downloading update file to %s' % destination)
-            downloadedFile = urllib2.urlopen(url)
+            downloadedFile = urllib.request.urlopen(url)
             f = open(destination, 'wb')
             f.write(downloadedFile.read())
             f.close()

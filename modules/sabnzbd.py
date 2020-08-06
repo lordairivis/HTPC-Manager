@@ -3,8 +3,8 @@
 
 import cherrypy
 import htpc
-from urllib import quote
-from urllib2 import urlopen
+from urllib.parse import quote
+from urllib.request import urlopen
 from json import loads
 import logging
 from cherrypy.lib.auth2 import require, member_of
@@ -99,7 +99,7 @@ class Sabnzbd(object):
     @require(member_of(htpc.role_user))
     @cherrypy.tools.json_out()
     def TogglePause(self, mode='', time=''):
-        print mode, time
+        print( mode, time )
         if time:
             self.logger.debug('Pausing for %s minutes' % time)
             return self.fetch('&mode=config&name=set_pause&value=' + time)

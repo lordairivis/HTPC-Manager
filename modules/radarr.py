@@ -4,7 +4,7 @@
 import datetime as DT
 from json import loads, dumps
 import logging
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 import cherrypy
 from cherrypy.lib.auth2 import require, member_of
@@ -166,7 +166,7 @@ class Radarr(object):
     @cherrypy.tools.json_out()
     def Calendar(self, param=None, *args, **kwargs):
         kwargs.pop('_')
-        p = urllib.urlencode(kwargs)
+        p = urllib.parse.urlencode(kwargs)
         movies = self.fetch('Calendar?%s' % p)
         cal = []
         if movies:
@@ -257,7 +257,7 @@ class Radarr(object):
     @require()
     @cherrypy.tools.json_out()
     def Lookup(self, q):
-        return self.fetch('Movie/lookup?term=%s' % urllib.quote(q))
+        return self.fetch('Movie/lookup?term=%s' % urllib.parse.quote(q))
 
     @cherrypy.expose()
     @require()
@@ -295,7 +295,7 @@ class Radarr(object):
             cherrypy.response.headers['Content-Type'] = 'application/json'
             return self.fetch('Movie', data=movie, type='post')
 
-        except Exception, e:
+        except Exception as e:
             self.logger.error('Failed to add movie %s %s' % (tmdbId, e))
 
     @cherrypy.expose()

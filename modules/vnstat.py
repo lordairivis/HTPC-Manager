@@ -156,7 +156,7 @@ class Vnstat(object):
 
                  }
             # combine dicts
-            info = dict(chain(d.items(), speed.items()))
+            info = dict(chain(list(d.items()), list(speed.items())))
             return info
 
         except Exception as e:
@@ -183,8 +183,8 @@ class Vnstat(object):
             piped = self.run('-tr -i %s' % interface)
         else:
             piped = self.run('-tr')
-        download = re.compile(ur'rx\s+(\d+.\d+)\s+(\w+\/s)')
-        upload = re.compile(ur'tx\s+(\d+.\d+)\s+(\w+\/s)')
+        download = re.compile(r'rx\s+(\d+.\d+)\s+(\w+\/s)')
+        upload = re.compile(r'tx\s+(\d+.\d+)\s+(\w+\/s)')
         rx = re.search(download, piped)
         tx = re.search(upload, piped)
         if rx:
@@ -208,7 +208,7 @@ class Vnstat(object):
     @require()
     @cherrypy.tools.json_out()
     def version(self):
-        reg = re.compile(ur'(\d+\.\d+)')
+        reg = re.compile(r'(\d+\.\d+)')
         search = re.search(reg, self.run('--version'))
         if search:
             self.version_ = float(search.group(1))

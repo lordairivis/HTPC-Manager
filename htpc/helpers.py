@@ -8,7 +8,7 @@ import htpc
 import imghdr
 import logging
 from cherrypy.lib.static import serve_file
-from urllib2 import Request, urlopen
+from urllib.request import Request, urlopen
 import urllib
 import time
 from functools import wraps
@@ -328,7 +328,7 @@ def create_https_certificates(ssl_cert, ssl_key):
         from OpenSSL import crypto
         from certgen import createKeyPair, createCertRequest, createCertificate, TYPE_RSA, serial
 
-    except Exception, e:
+    except Exception as e:
         logger.error(e)
         logger.error('You need pyopenssl and OpenSSL to make a cert')
         return False

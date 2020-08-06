@@ -16,6 +16,19 @@ from cherrypy.lib.auth2 import require, member_of
 
 logger = logging.getLogger('modules.stats')
 
+# Move to another file
+def admin():
+    """Determine whether this scrpt is running with administrative privilege.
+    ### Returns:
+    * **(bool):** True if running as an administrator, False otherwise.
+    """
+    try:
+        is_admin = os.getuid() == 0
+    except AttributeError:
+        is_admin = ctypes.windll.shell32.IsUserAnAdmin() != 0
+    return is_admin
+
+
 importPsutil = False
 importPsutilerror = ''
 try:
@@ -39,13 +52,17 @@ try:
     importpySMARTerror = ''
     importpySMART = True
 
+except ImportError as error:
+    logger.error(error.message)
+    importpySMARTerror = error
+    importpySMART = False
 except Exception as e:
-    logger.error(e)
+    logger.error( "Could not import pySMART" )
     importpySMARTerror = e
     importpySMART = False
 
 if importpySMART:
-    if pySMART.utils.admin() is False:
+    if admin() is False:
         importpySMART = False
         importpySMARTerror = 'Python should be executed as an administrator to smartmontools to work properly. Please, try to run python with elevated credentials.'
         logger.error(importpySMARTerror)

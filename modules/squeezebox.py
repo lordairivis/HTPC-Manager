@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import cherrypy
-import urllib2
+import urllib.request, urllib.parse, urllib.error
 import base64
 import htpc
 import logging
@@ -48,7 +48,7 @@ class Squeezebox(object):
     @require()
     @cherrypy.tools.json_out()
     def PlayerControl(self, player, command):
-        command = urllib2.unquote(command)
+        command = urllib.parse.unquote(command)
         return self.jsonRequest(player, command.split())
 
     @cherrypy.expose()
@@ -67,12 +67,12 @@ class Squeezebox(object):
     @require()
     def GetCover(self, player):
         url = self.webhost('music/current/cover.jpg?player=' + player)
-        request = urllib2.Request(url)
+        request = urllib.request.Request(url)
         auth = self.auth()
         if auth:
             request.add_header("Authorization", "Basic %s" % auth)
         cherrypy.response.headers['Content-Type'] = "image/jpeg"
-        return urllib2.urlopen(request).read()
+        return urllib.request.urlopen(request).read()
 
     @cherrypy.expose()
     @require()
@@ -133,9 +133,9 @@ class Squeezebox(object):
     def jsonRequest(self, player, params):
         data = dumps({"id": 1, "method": "slim.request", "params": [player, params]})
         self.logger.debug(data)
-        request = urllib2.Request(self.webhost('jsonrpc.js'), data)
+        request = urllib.request.Request(self.webhost('jsonrpc.js'), data)
         auth = self.auth()
         if (auth):
             request.add_header("Authorization", "Basic %s" % auth)
-        result = urllib2.urlopen(request, timeout=5).read()
+        result = urllib.request.urlopen(request, timeout=5).read()
         return loads(result.decode('utf-8'))

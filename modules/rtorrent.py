@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-from __future__ import division
 
-import htpc, cherrypy, logging, xmlrpclib, base64
+
+import htpc, cherrypy, logging, xmlrpc.client, base64
 from cherrypy.lib.auth2 import require, member_of
 from htpc.helpers import serve_template, fix_basepath, striphttp
 
@@ -35,7 +35,7 @@ class RTorrent(object):
     @require()
     @cherrypy.tools.json_out()
     def queue(self):
-        server = xmlrpclib.Server(self.stored_rpcurl())
+        server = xmlrpc.client.Server(self.stored_rpcurl())
         torrents = server.d.multicall("main", "d.get_name=",
                                       "d.get_bytes_done=", "d.get_complete=", "d.get_ratio=",
                                       "d.get_down_rate=", "d.get_up_rate=", "d.get_size_bytes=",
@@ -63,7 +63,7 @@ class RTorrent(object):
         server_url = self.rpc_url(
             rtorrent_host, rtorrent_rpcpath, rtorrent_ssl, rtorrent_username, rtorrent_password)
         self.logger.debug("Trying to contact rtorrent via %s" % server_url)
-        server = xmlrpclib.Server(server_url)
+        server = xmlrpc.client.Server(server_url)
         return server.system.client_version()
 
     @cherrypy.expose()
@@ -71,7 +71,7 @@ class RTorrent(object):
     @cherrypy.tools.json_out()
     def start(self, torrentId=False):
         self.logger.debug("Starting torrent %s" % (torrentId))
-        server = xmlrpclib.Server(self.stored_rpcurl())
+        server = xmlrpc.client.Server(self.stored_rpcurl())
         if torrentId is False:
             return server.d.multicall("main", "d.start")
         return server.d.start(torrentId)
@@ -81,7 +81,7 @@ class RTorrent(object):
     @cherrypy.tools.json_out()
     def stop(self, torrentId=False):
         self.logger.debug("Stopping torrent %s" % (torrentId))
-        server = xmlrpclib.Server(self.stored_rpcurl())
+        server = xmlrpc.client.Server(self.stored_rpcurl())
         if torrentId is False:
             return server.d.multicall("main", "d.stop")
         return server.d.stop(torrentId)
@@ -91,7 +91,7 @@ class RTorrent(object):
     @cherrypy.tools.json_out()
     def remove(self, torrentId):
         self.logger.debug("Removing torrent %s" % (torrentId))
-        server = xmlrpclib.Server(self.stored_rpcurl())
+        server = xmlrpc.client.Server(self.stored_rpcurl())
         return server.d.erase(torrentId)
 
     @cherrypy.expose()
@@ -99,10 +99,10 @@ class RTorrent(object):
     @cherrypy.tools.json_out()
     def add(self, filename=None, metainfo=None):
         self.logger.debug("Adding torrent: %s" % filename)
-        server = xmlrpclib.Server(self.stored_rpcurl())
+        server = xmlrpc.client.Server(self.stored_rpcurl())
         if metainfo:
             data = base64.b64decode(metainfo)
-            res = server.load_raw_start(xmlrpclib.Binary(data))
+            res = server.load_raw_start(xmlrpc.client.Binary(data))
         else:
             res = server.load_start(filename)
         return {'error': False} if res == 0 else {'error': True}
@@ -122,8 +122,8 @@ class RTorrent(object):
     @require()
     @cherrypy.tools.json_out()
     def stats(self):
-        server = xmlrpclib.Server(self.stored_rpcurl())
-        mc = xmlrpclib.MultiCall(server)
+        server = xmlrpc.client.Server(self.stored_rpcurl())
+        mc = xmlrpc.client.MultiCall(server)
         mc.throttle.global_down.rate()
         mc.throttle.global_up.rate()
         mc.throttle.global_down.max_rate()
@@ -146,7 +146,7 @@ class RTorrent(object):
     def set_downspeed(self, speed):
         speed = "%sk" % speed
         self.logger.debug('Set download speed to %s' % speed)
-        server = xmlrpclib.Server(self.stored_rpcurl())
+        server = xmlrpc.client.Server(self.stored_rpcurl())
         result = server.set_download_rate(speed)
 
     @cherrypy.expose()
@@ -155,7 +155,7 @@ class RTorrent(object):
     def set_upspeed(self, speed):
         speed = "%sk" % speed
         self.logger.debug('Set upload speed to %s' % speed)
-        server = xmlrpclib.Server(self.stored_rpcurl())
+        server = xmlrpc.client.Server(self.stored_rpcurl())
         result = server.set_upload_rate(speed)
 
     def stored_rpcurl(self):
