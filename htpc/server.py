@@ -136,6 +136,7 @@ def start():
             'tools.staticdir.root': webdir,
             'tools.encode.on': True,
             'tools.encode.encoding': 'utf-8',
+            'tools.encode.text_only': False,    # Added when ported from Py2 to Py3
             'tools.gzip.on': True,
             'tools.gzip.mime_types': ['text/html', 'text/plain', 'text/css', 'text/javascript', 'application/json', 'application/javascript']
 
