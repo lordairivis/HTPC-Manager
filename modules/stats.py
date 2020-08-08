@@ -149,7 +149,8 @@ class Stats(object):
                        'devfs', 'devpts', 'devtmpfs', 'hugetlbfs',
                        'iso9660', 'linprocfs', 'mqueue', 'none',
                        'proc', 'procfs', 'pstore', 'rootfs',
-                       'securityfs', 'sysfs', 'usbfs', '']
+                       'securityfs', 'sysfs', 'usbfs', 'cgroup',
+                       'rpc_pipefs', 'fusectl', 'nsfs', '']
 
             # Adds the mointpoints that the user wants to ignore
             user_mountpoint = htpc.settings.get('stats_mountpoint')
