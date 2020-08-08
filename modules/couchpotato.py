@@ -99,7 +99,7 @@ class Couchpotato(object):
                     for m in collection['movies']:
                         # flatten the info since we would normally be interessed in that
                         if 'info' in m:
-                            for k, v in m['info'].iteritems():
+                            for k, v in m['info'].items():
                                 m[k] = v
                                 try:
                                     imdb = m['info']['rating']['imdb']
@@ -107,11 +107,11 @@ class Couchpotato(object):
                                 except:
                                     pass
 
-                        for k, v in m.iteritems():
+                        for k, v in m.items():
                             if k.lower() == filt[0].lower():
                                 if isinstance(v, dict):
                                     # actor roles='Jack Bauer'
-                                    for kk, vv in v.iteritems():
+                                    for kk, vv in v.items():
                                         if v == kk:
                                             results.append(m)
                                 elif isinstance(v, list):
@@ -123,7 +123,7 @@ class Couchpotato(object):
                                     if check and check != '=':
                                         if comp_table[check](float(v), float(filt[1])):
                                             results.append(m)
-                                elif isinstance(v, basestring):
+                                elif isinstance(v, str):
                                     # plot='some string'
                                     if filt[1].lower() in v.lower():
                                         results.append(m)
@@ -218,7 +218,7 @@ class Couchpotato(object):
                             return get_image(working_url, h, w, o)
 
         except ValueError as e:
-            if isinstance(url, basestring):
+            if isinstance(url, str):
                 return get_image(url, h, w, o)
 
     @cherrypy.expose()

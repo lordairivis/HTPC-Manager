@@ -62,7 +62,7 @@ def _get_torrent_state(state_sum):
     """
 
     states = []
-    for ps in sorted(status.keys(), reverse=True):
+    for ps in sorted(list(status.keys()), reverse=True):
         if not state_sum:
             break
         if ps <= state_sum:
@@ -81,7 +81,7 @@ def TorrentResult(values):
     """
 
     def get_result(vals):
-        for key, idx in fields.items():
+        for key, idx in list(fields.items()):
             if key != 'status':
                 yield key, vals[idx]
             else:
@@ -232,7 +232,7 @@ class UTorrent(object):
         if action == 'add-url':
             return self.fetch('&action=%s&s=%s' % (action, s))
 
-        params_str = ''.join(["&%s=%s" % (k, v) for k, v in kwargs.items()])
+        params_str = ''.join(["&%s=%s" % (k, v) for k, v in list(kwargs.items())])
 
         if hash is None:
             # getsettings

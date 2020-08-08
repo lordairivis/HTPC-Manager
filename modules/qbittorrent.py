@@ -132,7 +132,7 @@ class Qbittorrent(object):
                         if k == 'eta':
                             eta = time.strftime('%H:%M:%S', time.gmtime(v))
                             if eta == '00:00:00':
-                                eta = '\u221E'
+                                eta = '\\u221E'
                             t['eta'] = eta
                         if k == 'ratio':
                             t['ratio'] = math.ceil(v)

@@ -4,7 +4,7 @@
 import cherrypy
 import htpc
 from htpc.helpers import get_image, fan_art, tvmaze
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import logging
 from cherrypy.lib.auth2 import require, member_of
 import requests
@@ -131,7 +131,7 @@ class Newznab(object):
         newznab_indexer_ssl='',
         """
         # kw is empty if kw is predef to ''
-        for k, v in kw.items():
+        for k, v in list(kw.items()):
             if k not in ('newznab_enable', 'newznab_name', 'newznab_show_in_menu',
                          'newznab_indexer_id', 'newznab_indexer_name',
                          'newznab_indexer_host', 'newznab_indexer_apikey', 'newznab_indexer_ssl'):
@@ -295,7 +295,7 @@ class Newznab(object):
 
         if indexer == 'all':
             for i in NewznabIndexers.select():
-                cmd = 'search&q=' + urllib2.quote(q.encode(encoding="UTF-8")) + cat + '&extended=1'
+                cmd = 'search&q=' + urllib.parse.quote(q.encode(encoding="UTF-8")) + cat + '&extended=1'
                 u = i.apiurl
                 u += cmd
                 u = u.replace('o=json', 'o=xml')
@@ -303,7 +303,7 @@ class Newznab(object):
         else:
             for i in NewznabIndexers.select():
                 if i.name == indexer:
-                    cmd = 'search&q=' + urllib2.quote(q.encode(encoding="UTF-8")) + cat + '&extended=1'
+                    cmd = 'search&q=' + urllib.parse.quote(q.encode(encoding="UTF-8")) + cat + '&extended=1'
                     u = i.apiurl
                     u += cmd
                     u = u.replace('o=json', 'o=xml')

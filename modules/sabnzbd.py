@@ -99,7 +99,7 @@ class Sabnzbd(object):
     @require(member_of(htpc.role_user))
     @cherrypy.tools.json_out()
     def TogglePause(self, mode='', time=''):
-        print( mode, time )
+        print(( mode, time ))
         if time:
             self.logger.debug('Pausing for %s minutes' % time)
             return self.fetch('&mode=config&name=set_pause&value=' + time)
