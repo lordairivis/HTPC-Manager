@@ -395,13 +395,13 @@ class Stats(object):
             self.logger.debug('Checking external ip at wtfismyip.com')
             s = requests.get('http://wtfismyip.com/text')
             if s.status_code == requests.codes.ok:
-                return s.content.strip()
+                return s.text.strip()
             else:
                 self.logger.error('Got bad response from wtfismyip.com HTTP ' + str(s.status_code))
                 self.logger.debug('Checking external ip at ident.me')
                 s = requests.get('http://ident.me/')
                 if s.status_code == requests.codes.ok:
-                    return s.content.strip()
+                    return s.text.strip()
                 else:
                     self.logger.error('Got bad response from ident.me HTTP ' + str(s.status_code))
                     return ''
