@@ -1,5 +1,5 @@
 import logging
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 import requests
 import xmltodict
@@ -16,7 +16,7 @@ def jackett(query, cat):
     base = htpc.settings.get('torrents_jackett_base', '')
     api = htpc.settings.get('torrents_jackett_apikey')
     ssl = 's' if htpc.settings.get('torrents_jackett_ssl') else ''
-    q = urllib.quote_plus(query)
+    q = urllib.parse.quote_plus(query)
     url = 'http%s://%s:%s%s/torznab/all?apikey=%s&format=json&q=%s&t=search' % (ssl, host, port, base.rstrip('/'), api, q)
 
     r = requests.get(url)
