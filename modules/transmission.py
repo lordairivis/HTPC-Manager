@@ -188,7 +188,7 @@ class Transmission(object):
     @cherrypy.tools.json_out()
     def to_client(self, link, torrentname, **kwargs):
         try:
-            self.logger.info('Added %s to uTorrent' % torrentname)
+            self.logger.info('Added %s to Transmission' % torrentname)
             return self.fetch('torrent-add', {'filename': link})
         except Exception as e:
             self.logger.debug('Failed to add %s to Transmission %s %s'(torrentname, link, e))
