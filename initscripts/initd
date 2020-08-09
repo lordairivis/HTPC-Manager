@@ -15,7 +15,7 @@
 APP_PATH=/path/to/htpc-manager
 
 # path to python bin
-DAEMON=/usr/bin/python
+DAEMON=/usr/bin/python3
 
 # startup args
 DAEMON_OPTS=" Htpc.py"
