@@ -137,6 +137,7 @@ def start():
             'tools.encode.on': True,
             'tools.encode.encoding': 'utf-8',
             'tools.encode.text_only': False,    # Added when ported from Py2 to Py3
+            'engine.timeout_monitor.on': False, # Disable timeouts
             'tools.gzip.on': True,
             'tools.gzip.mime_types': ['text/html', 'text/plain', 'text/css', 'text/javascript', 'application/json', 'application/javascript']
 
