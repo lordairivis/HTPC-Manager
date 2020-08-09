@@ -7,7 +7,7 @@ from json import loads
 import cherrypy
 import htpc
 import logging
-from cherrypy.lib.auth2 import require, member_of
+from htpc.auth2 import require, member_of
 from sqlobject import connectionForURI, sqlhub, SQLObject, SQLObjectNotFound
 from sqlobject.col import StringCol
 import shutil

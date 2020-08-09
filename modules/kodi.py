@@ -13,7 +13,7 @@ from sqlobject import SQLObject, SQLObjectNotFound
 from sqlobject.col import StringCol, IntCol
 from htpc.helpers import get_image, cachedprime
 import logging
-from cherrypy.lib.auth2 import require, member_of
+from htpc.auth2 import require, member_of
 import os
 import hashlib
 

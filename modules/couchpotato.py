@@ -4,7 +4,7 @@
 import cherrypy
 import htpc
 import requests
-from cherrypy.lib.auth2 import require, member_of
+from htpc.auth2 import require, member_of
 import logging
 import hashlib
 from htpc.helpers import fix_basepath, get_image, striphttp, comp_table

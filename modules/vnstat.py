@@ -4,7 +4,7 @@
 import htpc
 import cherrypy
 import logging
-from cherrypy.lib.auth2 import require
+from htpc.auth2 import require
 import xmltodict
 import platform
 import subprocess

@@ -12,7 +12,7 @@ import htpc
 import logging
 import urllib
 from threading import Thread
-from cherrypy.lib.auth2 import *
+from htpc.auth2 import *
 from htpc.helpers import serve_template
 
 

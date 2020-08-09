@@ -5,7 +5,7 @@ import cherrypy
 import htpc
 import logging
 import requests
-from cherrypy.lib.auth2 import require, member_of
+from htpc.auth2 import require, member_of
 from urllib.parse import urlencode
 from json import loads
 from htpc.helpers import get_image, striphttp

@@ -7,7 +7,7 @@ import json
 import logging
 import time
 import math
-from cherrypy.lib.auth2 import require, member_of
+from htpc.auth2 import require, member_of
 from htpc.helpers import striphttp, sizeof
 import requests
 from requests.auth import HTTPDigestAuth

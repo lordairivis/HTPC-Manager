@@ -7,7 +7,7 @@ import logging
 import urllib.request, urllib.parse, urllib.error
 
 import cherrypy
-from cherrypy.lib.auth2 import require, member_of
+from htpc.auth2 import require, member_of
 import requests
 
 import htpc

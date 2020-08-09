@@ -6,7 +6,7 @@ import cherrypy
 import logging
 from sqlobject import SQLObject, SQLObjectNotFound
 from sqlobject.col import StringCol
-from cherrypy.lib.auth2 import require, member_of
+from htpc.auth2 import require, member_of
 from htpc.manageusers import Manageusers
 
 

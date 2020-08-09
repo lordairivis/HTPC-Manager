@@ -8,7 +8,7 @@ from requests.auth import HTTPBasicAuth
 import logging
 import base64
 import re
-from cherrypy.lib.auth2 import require, member_of
+from htpc.auth2 import require, member_of
 from jsonrpclib import jsonrpc
 from htpc.helpers import fix_basepath, striphttp
 

@@ -8,7 +8,7 @@ import urllib.request, urllib.error, urllib.parse
 import urllib.request, urllib.parse, urllib.error
 import base64
 import json
-from cherrypy.lib.auth2 import require
+from htpc.auth2 import require
 
 
 class TVHeadend(object):

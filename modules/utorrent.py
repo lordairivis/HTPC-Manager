@@ -6,7 +6,7 @@ __author__ = 'quentingerome'
 
 
 import requests
-from cherrypy.lib.auth2 import require, member_of
+from htpc.auth2 import require, member_of
 import logging
 import htpc
 import cherrypy

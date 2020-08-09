@@ -14,7 +14,7 @@ import logging
 import urllib.parse
 import base64
 import platform
-from cherrypy.lib.auth2 import require, member_of
+from htpc.auth2 import require, member_of
 import requests
 from uuid import getnode
 import os

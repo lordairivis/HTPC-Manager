@@ -6,7 +6,7 @@ import htpc
 import requests
 from json import dumps
 import logging
-from cherrypy.lib.auth2 import require, member_of
+from htpc.auth2 import require, member_of
 from htpc.helpers import fix_basepath, striphttp
 
 

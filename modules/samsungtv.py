@@ -12,7 +12,7 @@ import urllib.request, urllib.error, urllib.parse
 import re
 import itertools
 import operator
-from cherrypy.lib.auth2 import require
+from htpc.auth2 import require
 #from uuid import getnode as get_mac
 
 

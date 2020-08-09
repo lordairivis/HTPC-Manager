@@ -2,7 +2,7 @@
 
 
 import htpc, cherrypy, logging, xmlrpc.client, base64
-from cherrypy.lib.auth2 import require, member_of
+from htpc.auth2 import require, member_of
 from htpc.helpers import serve_template, fix_basepath, striphttp
 
 class RTorrent(object):

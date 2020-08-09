@@ -7,7 +7,7 @@ import base64
 import htpc
 import logging
 from json import dumps, loads
-from cherrypy.lib.auth2 import require
+from htpc.auth2 import require
 from htpc.helpers import striphttp
 
 

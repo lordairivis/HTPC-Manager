@@ -12,7 +12,7 @@ import htpc
 import logging
 import os
 import requests
-from cherrypy.lib.auth2 import require, member_of
+from htpc.auth2 import require, member_of
 
 logger = logging.getLogger('modules.stats')
 

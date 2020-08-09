@@ -6,7 +6,7 @@ import htpc
 from urllib.parse import quote, urlencode
 import requests
 import logging
-from cherrypy.lib.auth2 import require, member_of
+from htpc.auth2 import require, member_of
 from htpc.helpers import fix_basepath, get_image, striphttp
 
 

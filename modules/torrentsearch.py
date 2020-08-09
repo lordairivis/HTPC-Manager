@@ -15,7 +15,7 @@ from ts import ptp
 from ts import rarbg
 from ts import torrentproject
 from ts import jackett2
-from cherrypy.lib.auth2 import require
+from htpc.auth2 import require
 
 
 regex_codec = re.compile(r'(x264|x\.264|h264|h\.264|xvid|x265|x\.265|h265|h\.265|mpeg2|divx)', re.I)

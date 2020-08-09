@@ -5,7 +5,7 @@ __author__ = 'jeremysherriff'
 
 import requests
 import cherrypy
-from cherrypy.lib.auth2 import require, member_of
+from htpc.auth2 import require, member_of
 # import datetime as DT
 # from json import loads, dumps
 import logging

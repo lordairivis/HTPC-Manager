@@ -6,7 +6,7 @@ import htpc
 from htpc.helpers import get_image, fan_art, tvmaze
 import urllib.request, urllib.parse, urllib.error
 import logging
-from cherrypy.lib.auth2 import require, member_of
+from htpc.auth2 import require, member_of
 import requests
 import concurrent.futures as cf
 from requests_futures.sessions import FuturesSession

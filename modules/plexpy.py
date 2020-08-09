@@ -9,7 +9,7 @@ import cherrypy
 
 import htpc
 from htpc.helpers import get_image, striphttp, fix_basepath
-from cherrypy.lib.auth2 import require, member_of
+from htpc.auth2 import require, member_of
 
 log = logging.getLogger('modules.plexpy')
 

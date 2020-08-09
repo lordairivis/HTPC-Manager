@@ -11,7 +11,7 @@ import logging
 import logging.handlers
 import sys
 from cherrypy.lib.static import serve_download
-from cherrypy.lib.auth2 import require, member_of
+from htpc.auth2 import require, member_of
 import colorama
 
 
