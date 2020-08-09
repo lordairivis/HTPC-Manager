@@ -101,7 +101,7 @@ class Vnstat(object):
                 self.logger.debug('Pipeing %s from shell' % cmd)
 
                 proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
-                                        stderr=subprocess.STDOUT, shell=True, cwd=htpc.RUNDIR)
+                                        stderr=subprocess.STDOUT, shell=True, cwd=htpc.RUNDIR, universal_newlines=True)
                 output, err = proc.communicate()
                 returncode = proc.returncode
 
