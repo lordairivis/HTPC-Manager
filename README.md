@@ -8,9 +8,9 @@ Hellowlol HTPC Manager fork
 A python based web application to manage the software on your HTPC. HTPC Manager combines all your favorite software into one slick interface.
 ![Screenshot](http://i.imgur.com/6QEWPFf.png)
 
-Requires Python 2.6 or 2.7
+Requires Python 3.x (3.5 minimum, most likely)
 
-Start with ```python Htpc.py```
+Start with ```python3 Htpc.py```
 
 
 #### [New modules]
