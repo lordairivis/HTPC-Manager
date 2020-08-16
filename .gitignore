@@ -1,6 +1,9 @@
 # Ignore folder containing user data #
 userdata/
 
+# Ignore virtual environment folder
+venv/
+
 # Ignore Versions file. If present, contains github commit hash for current version #
 VERSION.txt
 
