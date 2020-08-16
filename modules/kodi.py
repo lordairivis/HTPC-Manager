@@ -119,7 +119,7 @@ class Kodi(object):
     @cherrypy.expose()
     @cherrypy.tools.json_out()
     @require(member_of(htpc.role_admin))
-    def primecache(self, t='all', wanted_art='all', async=True, resize=True):
+    def primecache(self, t='all', wanted_art='all', nosync=True, resize=True):
         ''' find all images and cache them, might take a while...'''
         kodi = Server(self.url('/jsonrpc', True))
         url = self.url('/image/')
@@ -194,7 +194,7 @@ class Kodi(object):
         self.logger.debug('Found %s images in total' % len(imglist))
 
         try:
-            if async:
+            if nosync:
                 t = cachedprime(imglist, headers, resize=bool(resize))
                 return t
 
