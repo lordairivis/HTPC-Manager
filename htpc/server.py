@@ -137,7 +137,6 @@ def start():
             'tools.encode.on': True,
             'tools.encode.encoding': 'utf-8',
             'tools.encode.text_only': False,    # Added when ported from Py2 to Py3
-            'engine.timeout_monitor.on': False, # Disable timeouts
             'tools.gzip.on': True,
             'tools.gzip.mime_types': ['text/html', 'text/plain', 'text/css', 'text/javascript', 'application/json', 'application/javascript']
 
@@ -193,4 +192,12 @@ def start():
     print('Starting HTPC Manager on port ' + str(htpc.PORT) + '.')
     print('Start your browser and go to http%s://localhost:%s%s' % (protocol, htpc.PORT, htpc.WEBDIR[:-1]))
     print('*******************************************************************')
+    cherrypy.config.update({
+        'global': {
+            'engine.timeout_monitor.on': False, # Disable timeouts
+            'engine.autoreload.on' : False,     # Should reduce CPU usage
+            'environment' : 'production',
+        },
+    })
+
     cherrypy.quickstart(htpc.ROOT, htpc.WEBDIR[:-1], config=app_config)
