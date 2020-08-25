@@ -1,30 +1,30 @@
 # The following modules are mandatory
-ssdp~=1.0.1
+ssdp
 jaraco.collections
-six~=1.14.0
-apscheduler~=0.0.0
+six
+apscheduler
 pypi-xmlrpc
-colorama~=0.4.3
+colorama
 formencode
-requests~=2.22.0
+requests
 requests-futures
-mako~=1.1.0
+mako
 tzlocal
-xmltodict~=0.12.0
+xmltodict
 cherrypy < 9.0
-jsonrpclib-pelix~=0.3.1
+jsonrpclib-pelix
 pytz
 pyasn1
-sqlobject~=3.8.0
+sqlobject
 
 # Hptc Manager will run fine fine without this ones. However if will miss some features
 # "Needed" for image resize etc
-Pillow~=7.0.0
+Pillow
 # "Needed" for stat module
 psutil>=3.0.0
 # "Needed for genereratin ssl cert key"
 pyopenssl
 # "Needed" for the vnstat module
-paramiko~=2.6.0
+paramiko
 # "Needed" for SMART
-pySMART~=1.0
+pySMART
