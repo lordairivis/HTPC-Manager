@@ -191,7 +191,7 @@ class Transmission(object):
             self.logger.info('Added %s to Transmission' % torrentname)
             return self.fetch('torrent-add', {'filename': link})
         except Exception as e:
-            self.logger.debug('Failed to add %s to Transmission %s %s'(torrentname, link, e))
+            self.logger.debug('Failed to add %s to Transmission %s %s' % (torrentname, link, e))
 
     # Wrapper to access the Transmission Api
     # If the first call fails, there probably is no valid Session ID so we try it again
