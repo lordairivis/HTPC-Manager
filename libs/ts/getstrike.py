@@ -68,7 +68,7 @@ def search(q, cat):
                 l.append(r)
             return l
         else:
-            logger.debug('Failed to fetch torrents from getstrike with query %s category %s message %s' (q, cat, r.json()['message']))
+            logger.debug('Failed to fetch torrents from getstrike with query %s category %s message %s' % (q, cat, r.json()['message']))
             return []
     except Exception as e:
         logger.debug('Failed to fetch any torrents from getstrike with query %s category %s error is %s' % (q, cat, e))
