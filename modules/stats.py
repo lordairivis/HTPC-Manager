@@ -53,7 +53,7 @@ try:
     importpySMART = True
 
 except ImportError as error:
-    logger.error(error.message)
+    logger.error(error)
     importpySMARTerror = error
     importpySMART = False
 except Exception as e:
