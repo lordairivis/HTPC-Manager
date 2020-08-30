@@ -4,6 +4,8 @@ We made this an [organization](https://github.com/HTPC-Manager) repository to be
 
 [![Join the chat at https://gitter.im/Hellowlol/HTPC-Manager](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Hellowlol/HTPC-Manager?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+[![CodeFactor](https://www.codefactor.io/repository/github/htpc-manager/htpc-manager/badge)](https://www.codefactor.io/repository/github/htpc-manager/htpc-manager)
+
 =====
 
 A python based web application to manage the software on your HTPC. HTPC Manager combines all your favorite software into one slick interface.
