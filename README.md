@@ -1,11 +1,13 @@
-Hellowlol HTPC Manager fork
+#### Python 3 compatible fork of [Hellowlol's HTPC Manager fork](https://github.com/Hellowlol/HTPC-Manager)
+
+We made this an [organization](https://github.com/HTPC-Manager) repository to be more independent from single developers. If you want to join the team or contributed to HTPC Manager before, please open an issue (or PR) as we need more hands to polish Python 3 compatibility and keep modules with their software backends.
 
 [![Join the chat at https://gitter.im/Hellowlol/HTPC-Manager](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Hellowlol/HTPC-Manager?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-[![Code Issues](https://www.quantifiedcode.com/api/v1/project/3722bd15e2524fb590cbf6b8c86a920b/badge.svg)](https://www.quantifiedcode.com/app/project/3722bd15e2524fb590cbf6b8c86a920b)
-
 =====
+
 A python based web application to manage the software on your HTPC. HTPC Manager combines all your favorite software into one slick interface.
+
 ![Screenshot](http://i.imgur.com/6QEWPFf.png)
 
 Requires Python 3.x (3.5 minimum, most likely) and crapload of Python libs. Just make sure that CherryPy version is < 9.0 (as stated in requirements.txt).
@@ -13,7 +15,6 @@ Requires Python 3.x (3.5 minimum, most likely) and crapload of Python libs. Just
 Start with ```python3 Htpc.py```
 
 A [virtual environment](https://docs.python.org/3/library/venv.html) is strongly encouraged.
-
 
 #### [New modules]
 - Sonarr
@@ -24,7 +25,7 @@ A [virtual environment](https://docs.python.org/3/library/venv.html) is strongly
 - vnStat
 - Mylar
 
-### [Modules]
+#### [Modules]
 - Couchpotato
 - Deluge
 - kodi
@@ -94,7 +95,6 @@ If you still have problems: INCLUDE THIS IN YOUR ISSUE
 1. Shutdown HTPC Manager
 2. Start Htpc.py --loglevel debug (Do NOT start with --dev)
 3. Start HTPC Manager and wait for error to occur again/reproduce it
-
 
 #### Installation
 
