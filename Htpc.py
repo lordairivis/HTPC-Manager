@@ -145,10 +145,9 @@ def main():
     if not hasattr(sys, "setdefaultencoding"):
             importlib.reload(sys)
 
-    # python 2.7.9 verifies certs by default. This disables it
-    if sys.version_info >= (2, 7, 9):
-        import ssl
-        ssl._create_default_https_context = ssl._create_unverified_context
+    # Since python 2.7.9 certs are verified by default. This disables it
+    import ssl
+    ssl._create_default_https_context = ssl._create_unverified_context
 
     # Set datadir, create if it doesn't exist and exit if it isn't writable.
     htpc.DATADIR = os.path.join(htpc.RUNDIR, 'userdata')
