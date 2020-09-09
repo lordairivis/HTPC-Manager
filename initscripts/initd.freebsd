@@ -28,7 +28,7 @@ load_rc_config ${name}
 : ${htpc_manager_data_dir:="/var/db/htpc-manager"}
 
 pidfile="/var/run/htpc-manager/htpc-manager.pid"
-command="/usr/local/bin/python2.7"
+command="/usr/local/bin/python3"
 command_args="/usr/local/share/HTPC-Manager/Htpc.py --datadir ${htpc_manager_data_dir} --daemon --pid ${pidfile}"
 
 start_precmd="htpc-manager_prestart"
