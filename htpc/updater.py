@@ -187,7 +187,7 @@ class Updater(object):
         self.logger.debug('Checking how far behind latest')
         try:
             url = 'https://api.github.com/repos/%s/%s/compare/%s...%s' % (gitUser, gitRepo, current, latest)
-            result = loads(urllib.request.urlopen(url).read())
+            result = loads(urllib.request.urlopen(url).read().decode('utf-8'))
             behind = int(result['total_commits'])
             self.logger.debug('Behind: ' + str(behind))
             return behind
@@ -243,7 +243,7 @@ class GitUpdater(object):
         self.logger.debug('Getting latest version from github.')
         try:
             url = 'https://api.github.com/repos/%s/%s/commits/%s' % (gitUser, gitRepo, self.current_branch_name())
-            result = loads(urllib.request.urlopen(url).read())
+            result = loads(urllib.request.urlopen(url).read().decode('utf-8'))
             latest = result['sha'].strip()
             self.logger.debug('Branch: %s' % self.current_branch_name())
             self.logger.debug('Latest sha: %s' % latest)
@@ -391,7 +391,7 @@ class SourceUpdater(object):
         self.logger.debug('Getting latest version from github.')
         try:
             url = 'https://api.github.com/repos/%s/%s/commits/%s' % (gitUser, gitRepo, htpc.settings.get('branch', 'master2'))
-            result = loads(urllib.request.urlopen(url).read())
+            result = loads(urllib.request.urlopen(url).read().decode('utf-8'))
             latest = result['sha'].strip()
             self.logger.debug('Latest version: ' + latest)
             self.latestHash = latest
@@ -409,7 +409,7 @@ class SourceUpdater(object):
         if not isinstance(self.current(), bool):
             try:
                 url = "https://api.github.com/repos/%s/%s/branches?per_page=100" % (gitUser, gitRepo)
-                branches = loads(urllib.request.urlopen(url).read())
+                branches = loads(urllib.request.urlopen(url).read().decode('utf-8'))
                 for branch in branches:
                     if branch["commit"]["sha"] == versionfile:
                         current_branch = branch["name"]
@@ -432,7 +432,7 @@ class SourceUpdater(object):
         try:
             url = "https://api.github.com/repos/%s/%s/branches?per_page=100" % (gitUser, gitRepo)
             branchlist = []
-            branches = loads(urllib.request.urlopen(url).read())
+            branches = loads(urllib.request.urlopen(url).read().decode('utf-8'))
             for branch in branches:
                 branchlist.append(branch["name"])
             d["branches"] = [b for b in branchlist if b != cbn]
