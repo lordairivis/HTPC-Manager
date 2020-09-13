@@ -70,7 +70,7 @@ class Log(object):
         htpc.LOGGER.addHandler(self.logch)
         htpc.LOGGER.addHandler(self.logfh)
 
-        htpc.LOGGER.info("Welcome to Hellowlol's HTPC Manager fork")
+        htpc.LOGGER.info("Welcome to the Python 3 port of Hellowlol's HTPC Manager fork")
         htpc.LOGGER.info("Loglevel set to %s" % htpc.LOGLEVEL)
 
     @cherrypy.expose()
