@@ -1,12 +1,10 @@
-#### Python 3 compatible fork of [Hellowlol's HTPC Manager fork](https://github.com/Hellowlol/HTPC-Manager)
+#### Python 3 port of [Hellowlol's HTPC Manager fork](https://github.com/Hellowlol/HTPC-Manager)
 
-We made this an [organization](https://github.com/HTPC-Manager) repository to be more independent from single developers. If you want to join the team or contributed to HTPC Manager before, please open an issue (or PR) as we need more hands to polish Python 3 compatibility and keep modules with their software backends.
-
-[![Join the chat at https://gitter.im/Hellowlol/HTPC-Manager](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Hellowlol/HTPC-Manager?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+We made this an [organization](https://github.com/HTPC-Manager) repository to be more independent from single developers. If you want to join the team or contributed to HTPC Manager before, please open an issue (or PR) as we need more hands to polish Python 3 compatibility and keep modules updated with their software backends.
 
 [![CodeFactor](https://www.codefactor.io/repository/github/htpc-manager/htpc-manager/badge)](https://www.codefactor.io/repository/github/htpc-manager/htpc-manager)
 
-=====
+---
 
 A python based web application to manage the software on your HTPC. HTPC Manager combines all your favorite software into one slick interface.
 
@@ -73,9 +71,6 @@ A [virtual environment](https://docs.python.org/3/library/venv.html) is strongly
 
 If you're missing something don't be afraid to make a request :)
 
-See here for full list:
-https://github.com/Hellowlol/HTPC-Manager/compare/styxit:master...master2
-
 #### SO YOU FOUND A BUG? GREAT!
 
 Before you open a new issue, make sure you:
@@ -91,7 +86,7 @@ If you still have problems: INCLUDE THIS IN YOUR ISSUE
  - What did you expect to happen?
  - If it's a visual bug, screenshot or it didn't happen!
  - Which browser, including version
- - Link to a copy/paste of your ENTIRE logfile (with loglevel debug!), please write the linenumber where the error occured [PASTEBIN](http://www.pastebin.com) NO logs == NO help
+ - Add your ENTIRE log (with loglevel debug!), please write the line number where the error occured, NO logs == NO help
 
 #### How to enable detailed logs
 1. Shutdown HTPC Manager
