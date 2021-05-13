@@ -184,7 +184,7 @@ class Couchpotato(object):
         try:
             x = json.loads(url)
             if isinstance(x, list):
-                tl = [(hashlib.md5(u).hexdigest(), u) for u in x]
+                tl = [(hashlib.md5(u.encode('utf-8')).hexdigest(), u) for u in x]
                 checkurl = []
                 # check any of the images exist in the cache
                 for i in tl:
