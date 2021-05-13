@@ -16,6 +16,7 @@ jsonrpclib-pelix
 pytz
 pyasn1
 sqlobject
+workerpool
 
 # HTPC Manager runs without these, but misses some features:
 # Needed for image resize etc
