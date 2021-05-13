@@ -156,8 +156,8 @@ class Couchpotato(object):
     def getapikey(self, couchpotato_username, couchpotato_password, couchpotato_host, couchpotato_port, couchpotato_apikey, couchpotato_basepath, couchpotato_ssl=False, **kwargs):
         self.logger.debug('Testing connectivity to couchpotato')
         if couchpotato_password and couchpotato_username != '':
-            couchpotato_password = hashlib.md5(couchpotato_password).hexdigest()
-            couchpotato_username = hashlib.md5(couchpotato_username).hexdigest()
+            couchpotato_password = hashlib.md5(couchpotato_password.encode('utf-8')).hexdigest()
+            couchpotato_username = hashlib.md5(couchpotato_username.encode('utf-8')).hexdigest()
 
         getkey = 'getkey/?p=%s&u=%s' % (couchpotato_password, couchpotato_username)
 
@@ -184,7 +184,7 @@ class Couchpotato(object):
         try:
             x = json.loads(url)
             if isinstance(x, list):
-                tl = [(hashlib.md5(u).hexdigest(), u) for u in x]
+                tl = [(hashlib.md5(u.encode('utf-8')).hexdigest(), u) for u in x]
                 checkurl = []
                 # check any of the images exist in the cache
                 for i in tl:
