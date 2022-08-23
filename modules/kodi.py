@@ -8,11 +8,15 @@ import base64
 import socket
 import struct
 <<<<<<< HEAD
+<<<<<<< HEAD
 from urllib.parse import quote, quote_plus
 =======
 from urllib.parse import quote
 from urllib.parse import urlencode
 >>>>>>> some changes to fix issues with the python2->python3 conversion
+=======
+from urllib.parse import quote, quote_plus
+>>>>>>> Adding suggested changes
 from jsonrpclib import Server
 from sqlobject import SQLObject, SQLObjectNotFound
 from sqlobject.col import StringCol, IntCol
@@ -891,6 +895,7 @@ class Kodi(object):
         """ Generate a base64 HTTP auth string based on settings """
         if self.current.username and self.current.password:
 <<<<<<< HEAD
+<<<<<<< HEAD
             credentials = f'{quote_plus(self.current.username)}:{quote_plus(self.current.password)}'
             return base64.b64encode(credentials.encode()).decode()
 =======
@@ -901,3 +906,7 @@ class Kodi(object):
             bytes_base64_encoded_credentials = base64.encodebytes(credentials.encode('utf-8'))
             return bytes_base64_encoded_credentials.decode('utf-8').replace('\n', '')
 >>>>>>> some changes to fix issues with the python2->python3 conversion
+=======
+            credentials = f'{quote_plus(self.current.username)}:{quote_plus(self.current.password)}'
+            return base64.encodebytes(credentials.encode()).decode().replace('\n', '')
+>>>>>>> Adding suggested changes
