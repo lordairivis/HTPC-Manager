@@ -7,7 +7,7 @@ import htpc
 import base64
 import socket
 import struct
-from urllib.parse import quote
+from urllib.parse import quote, quote_plus
 from jsonrpclib import Server
 from sqlobject import SQLObject, SQLObjectNotFound
 from sqlobject.col import StringCol, IntCol
@@ -885,4 +885,5 @@ class Kodi(object):
     def auth(self):
         """ Generate a base64 HTTP auth string based on settings """
         if self.current.username and self.current.password:
-            return base64.encodestring('%s:%s' % (self.current.username, self.current.password)).strip('\n')
+            credentials = f'{quote_plus(self.current.username)}:{quote_plus(self.current.password)}'
+            return base64.encodebytes(credentials.encode()).decode().replace('\n', '')
