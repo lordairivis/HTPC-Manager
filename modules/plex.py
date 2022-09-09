@@ -860,10 +860,14 @@ class Plex(object):
                 self.logger.debug('Fetching auth token')
                 headers = {}
 <<<<<<< HEAD
+<<<<<<< HEAD
                 headers['Authorization'] = f'Basic {base64.b64encode(credentials.encode()).decode()}'
 =======
                headers['Authorization'] = 'Basic %s' % base64.encodebytes(credentials.encode()).decode().replace('\n', '')
 >>>>>>> adding changes to correct python2->python3 login for plex module
+=======
+                headers['Authorization'] = 'Basic %s' % base64.encodebytes(credentials.encode()).decode().replace('\n', '')
+>>>>>>> more typo corrections
                 headers['X-Plex-Client-Identifier'] = str(hex(getnode()))
                 headers['X-Plex-Product'] = 'HTPC Manager'
                 headers['X-Plex-Device'] = 'HTPC Manager'
