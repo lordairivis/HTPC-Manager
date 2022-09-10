@@ -908,5 +908,9 @@ class Kodi(object):
 >>>>>>> some changes to fix issues with the python2->python3 conversion
 =======
             credentials = f'{quote_plus(self.current.username)}:{quote_plus(self.current.password)}'
+<<<<<<< HEAD
             return base64.encodebytes(credentials.encode()).decode().replace('\n', '')
 >>>>>>> Adding suggested changes
+=======
+            return base64.b64encode(credentials.encode()).decode()
+>>>>>>> suggested changes from dev branch
