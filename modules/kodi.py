@@ -909,8 +909,12 @@ class Kodi(object):
 =======
             credentials = f'{quote_plus(self.current.username)}:{quote_plus(self.current.password)}'
 <<<<<<< HEAD
+<<<<<<< HEAD
             return base64.encodebytes(credentials.encode()).decode().replace('\n', '')
 >>>>>>> Adding suggested changes
 =======
             return base64.b64encode(credentials.encode()).decode()
 >>>>>>> suggested changes from dev branch
+=======
+            return base64.b64encode(credentials.encode()).decode()
+>>>>>>> Update modules/kodi.py
