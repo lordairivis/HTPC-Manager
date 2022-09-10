@@ -861,6 +861,7 @@ class Plex(object):
                 headers = {}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 headers['Authorization'] = f'Basic {base64.b64encode(credentials.encode()).decode()}'
 =======
                headers['Authorization'] = 'Basic %s' % base64.encodebytes(credentials.encode()).decode().replace('\n', '')
@@ -868,6 +869,9 @@ class Plex(object):
 =======
                 headers['Authorization'] = 'Basic %s' % base64.encodebytes(credentials.encode()).decode().replace('\n', '')
 >>>>>>> more typo corrections
+=======
+                headers['Authorization'] = f'Basic {base64.b64encode(credentials.encode()).decode()}'
+>>>>>>> Update modules/plex.py
                 headers['X-Plex-Client-Identifier'] = str(hex(getnode()))
                 headers['X-Plex-Product'] = 'HTPC Manager'
                 headers['X-Plex-Device'] = 'HTPC Manager'
