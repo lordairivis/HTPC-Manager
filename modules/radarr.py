@@ -206,7 +206,7 @@ class Radarr(object):
     @require()
     @cherrypy.tools.json_out()
     def Profile(self):
-        return self.fetch('profile')
+        return self.fetch('qualityprofile')
 
     @cherrypy.expose()
     @require(member_of(htpc.role_user))
